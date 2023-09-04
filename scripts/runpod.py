@@ -5,7 +5,7 @@ import os
 import requests
 
 def handler(event):
-        request = requests.post('http://localhost:3000/sdapi/v1/txt2img', data=event.input)
+        request = requests.post('http://localhost:3000/sdapi/v1/txt2img', data=event["input"])
         return request.json()
 
 class RunPodServerlessScript(scripts.Script):
