@@ -2,16 +2,11 @@ import modules.scripts as scripts
 import gradio as gr
 import runpod
 import os
-import aiohttp
-import asyncio
-import ujson
+import requests
 
 def handler(event):
-        with aiohttp.ClientSession() as session:
-                request = session.post('http://localhost:3000/sdapi/v1/txt2img', json=event.input)
-                return request
-
-
+        request = requests.post('http://localhost:3000/sdapi/v1/txt2img', data=event.input)
+        return request.json()
 
 class RunPodServerlessScript(scripts.Script):
         # Extension title in menu UI
