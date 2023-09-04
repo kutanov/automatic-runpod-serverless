@@ -2,16 +2,15 @@ import modules.scripts as scripts
 import gradio as gr
 import runpod
 import os
-
-from modules import images, script_callbacks
-from modules.processing import process_images, Processed
-from modules.processing import Processed
-from modules.shared import opts, cmd_opts, state
-
-from modules.api.api import img2imgapi
+import aiohttp
+import asyncio
+import ujson
 
 def handler(event):
-        return img2imgapi(event.input)
+        with aiohttp.ClientSession() as session:
+                request = session.post('http://localhost:3000/sdapi/v1/txt2img', json=event.input)
+                return request
+
 
 
 class RunPodServerlessScript(scripts.Script):
