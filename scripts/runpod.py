@@ -6,6 +6,7 @@ import requests
 
 def handler(event):
         request = requests.post('http://localhost:3000/sdapi/v1/txt2img', data=event["input"])
+        print(event)
         return request.json()
 
 class RunPodServerlessScript(scripts.Script):
@@ -19,5 +20,5 @@ class RunPodServerlessScript(scripts.Script):
         
         def on_app_started(self, block):
                 runpod.serverless.start({
-                        "handler": self.handler
+                        "handler": handler
                 })
